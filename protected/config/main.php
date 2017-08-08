@@ -17,6 +17,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 	    'application.modules.default.base.*',
+	    'application.logics.default.*',
 	),
 
 	'modules'=>array(
@@ -59,6 +60,8 @@ return array(
 			'username' => 'root',
 			'password' => '123',
 			'charset' => 'utf8',
+		    'tablePrefix' => 'yc_',
+		    'enableParamLogging' => true,
 		),
 
 		'errorHandler'=>array(
