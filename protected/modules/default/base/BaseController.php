@@ -8,6 +8,10 @@ class BaseController extends Controller {
         $this->themePath = YC_THEME_PATH.$theme;
     }
     
+    public function ycRedirect(Controller $controller, $path) {
+        $controller->redirect(Yii::app()->baseUrl.'/'.$path);
+    }
+    
     /**
      * 在项目之前运行
      * 
