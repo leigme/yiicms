@@ -1,6 +1,9 @@
-<?php
-    $json = array();
-    $json['Id'] = 1;
-    $json['Title'] = "测试名称";
-    echo("来个JSON看看".json_encode($json));
-    
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
