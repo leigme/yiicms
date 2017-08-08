@@ -3,7 +3,15 @@
 class AdminController extends AdminBaseController {
     
     public function actionIndex() {
+        Tools::setThemeCSS(YC_BOOTSTRAP_CSS.'bootstrap.min.css');
+        Tools::setThemeCSS('/css/admin/dashboard.css');
+        Tools::setThemeJS(YC_BOOTSTRAP_JS.'bootstrap.min.js');
         
+        // 	    $this->setTheme('t01');
+         
+        $this->layout = '//admin/layout';
+         
+        $this->render('index');
     }
     
     public function actionLogin() {
@@ -14,7 +22,7 @@ class AdminController extends AdminBaseController {
         
         // 	    $this->setTheme('t01');
          
-        $this->layout = '//'.$this->themePath.'/layout';
+        $this->layout = '//admin/layout';
          
         $this->render('login');
     }
