@@ -1,9 +1,12 @@
 <?php
 
 class DefaultController extends BaseController {
+    
 	public function actionIndex() {
-	    $this->layout = '//default/layout';
+// 	    $this->setTheme('t01');
 	    
-		$this->render('index');
+	    $this->layout = '//'.$this->themePath.'/layout';
+	    
+		$this->render($this->themePath.'/index');
 	}
 }

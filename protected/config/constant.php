@@ -11,3 +11,6 @@ define('YC_BOOTSTRAP_PATH', "/static/bootstrap/");
 define('YC_BOOTSTRAP_CSS', "/static/bootstrap/css/");
 // bootstrapJS路径
 define('YC_BOOTSTRAP_JS', "/static/bootstrap/js/");
+
+// 主题根路径
+define('YC_THEME_PATH', "theme/");
