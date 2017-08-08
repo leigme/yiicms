@@ -7,6 +7,7 @@
  * @property integer $Id
  * @property string $Username
  * @property string $Password
+ * @property string $Realname
  * @property integer $OperateFlag
  * @property integer $DeleteFlag
  * @property string $CreateTime
@@ -14,6 +15,8 @@
  * @property string $DeleteTime
  *
  * The followings are the available model relations:
+ * @property YcComment[] $ycComments
+ * @property YcContent[] $ycContents
  * @property YcUserColumn[] $ycUserColumns
  * @property YcUserPurview[] $ycUserPurviews
  */
@@ -46,10 +49,10 @@ class YcUser extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
-			array('Username, Password, CreateTime, UpdateTime, DeleteTime', 'safe'),
+			array('Username, Password, Realname, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Username, Password, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
+			array('Id, Username, Password, Realname, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +64,8 @@ class YcUser extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'ycComments' => array(self::HAS_MANY, 'YcComment', 'Author'),
+			'ycContents' => array(self::HAS_MANY, 'YcContent', 'Author'),
 			'ycUserColumns' => array(self::HAS_MANY, 'YcUserColumn', 'UserId'),
 			'ycUserPurviews' => array(self::HAS_MANY, 'YcUserPurview', 'UserId'),
 		);
@@ -75,6 +80,7 @@ class YcUser extends CActiveRecord
 			'Id' => 'ID',
 			'Username' => 'Username',
 			'Password' => 'Password',
+			'Realname' => 'Realname',
 			'OperateFlag' => 'Operate Flag',
 			'DeleteFlag' => 'Delete Flag',
 			'CreateTime' => 'Create Time',
@@ -97,6 +103,7 @@ class YcUser extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('Username',$this->Username,true);
 		$criteria->compare('Password',$this->Password,true);
+		$criteria->compare('Realname',$this->Realname,true);
 		$criteria->compare('OperateFlag',$this->OperateFlag);
 		$criteria->compare('DeleteFlag',$this->DeleteFlag);
 		$criteria->compare('CreateTime',$this->CreateTime,true);

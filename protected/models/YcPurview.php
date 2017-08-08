@@ -5,17 +5,15 @@
  *
  * The followings are the available columns in table 'yc_purview':
  * @property integer $PurviewId
- * @property integer $GroupId
  * @property string $Title
  * @property string $Remark
  * @property integer $OperateFlag
  * @property integer $DeleteFlag
  * @property string $CreateTime
  * @property string $UpdateTime
- * @property string $DeleteTIme
+ * @property string $DeleteTime
  *
  * The followings are the available model relations:
- * @property YcPurviewGroup $group
  * @property YcUserPurview[] $ycUserPurviews
  */
 class YcPurview extends CActiveRecord
@@ -46,11 +44,11 @@ class YcPurview extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('GroupId, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
-			array('Title, Remark, CreateTime, UpdateTime, DeleteTIme', 'safe'),
+			array('OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
+			array('Title, Remark, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PurviewId, GroupId, Title, Remark, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTIme', 'safe', 'on'=>'search'),
+			array('PurviewId, Title, Remark, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +60,6 @@ class YcPurview extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'group' => array(self::BELONGS_TO, 'YcPurviewGroup', 'GroupId'),
 			'ycUserPurviews' => array(self::HAS_MANY, 'YcUserPurview', 'PurviewId'),
 		);
 	}
@@ -74,14 +71,13 @@ class YcPurview extends CActiveRecord
 	{
 		return array(
 			'PurviewId' => 'Purview',
-			'GroupId' => 'Group',
 			'Title' => 'Title',
 			'Remark' => 'Remark',
 			'OperateFlag' => 'Operate Flag',
 			'DeleteFlag' => 'Delete Flag',
 			'CreateTime' => 'Create Time',
 			'UpdateTime' => 'Update Time',
-			'DeleteTIme' => 'Delete Time',
+			'DeleteTime' => 'Delete Time',
 		);
 	}
 
@@ -97,14 +93,13 @@ class YcPurview extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('PurviewId',$this->PurviewId);
-		$criteria->compare('GroupId',$this->GroupId);
 		$criteria->compare('Title',$this->Title,true);
 		$criteria->compare('Remark',$this->Remark,true);
 		$criteria->compare('OperateFlag',$this->OperateFlag);
 		$criteria->compare('DeleteFlag',$this->DeleteFlag);
 		$criteria->compare('CreateTime',$this->CreateTime,true);
 		$criteria->compare('UpdateTime',$this->UpdateTime,true);
-		$criteria->compare('DeleteTIme',$this->DeleteTIme,true);
+		$criteria->compare('DeleteTime',$this->DeleteTime,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

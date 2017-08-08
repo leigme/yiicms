@@ -9,6 +9,7 @@
  * @property string $Title
  * @property string $ImagePath
  * @property integer $FileId
+ * @property integer $Author
  * @property integer $OperateFlag
  * @property integer $DeleteFlag
  * @property string $CreateTime
@@ -17,7 +18,9 @@
  *
  * The followings are the available model relations:
  * @property YcAnnex[] $ycAnnexes
+ * @property YcComment[] $ycComments
  * @property YcColumn $column
+ * @property YcUser $author
  */
 class YcContent extends CActiveRecord
 {
@@ -47,11 +50,12 @@ class YcContent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ColumnId, FileId, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
+			array('Id', 'required'),
+			array('Id, ColumnId, FileId, Author, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
 			array('Title, ImagePath, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, ColumnId, Title, ImagePath, FileId, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
+			array('Id, ColumnId, Title, ImagePath, FileId, Author, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +68,9 @@ class YcContent extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'ycAnnexes' => array(self::HAS_MANY, 'YcAnnex', 'ContentId'),
+			'ycComments' => array(self::HAS_MANY, 'YcComment', 'ContentId'),
 			'column' => array(self::BELONGS_TO, 'YcColumn', 'ColumnId'),
+			'author' => array(self::BELONGS_TO, 'YcUser', 'Author'),
 		);
 	}
 
@@ -79,6 +85,7 @@ class YcContent extends CActiveRecord
 			'Title' => 'Title',
 			'ImagePath' => 'Image Path',
 			'FileId' => 'File',
+			'Author' => 'Author',
 			'OperateFlag' => 'Operate Flag',
 			'DeleteFlag' => 'Delete Flag',
 			'CreateTime' => 'Create Time',
@@ -103,6 +110,7 @@ class YcContent extends CActiveRecord
 		$criteria->compare('Title',$this->Title,true);
 		$criteria->compare('ImagePath',$this->ImagePath,true);
 		$criteria->compare('FileId',$this->FileId);
+		$criteria->compare('Author',$this->Author);
 		$criteria->compare('OperateFlag',$this->OperateFlag);
 		$criteria->compare('DeleteFlag',$this->DeleteFlag);
 		$criteria->compare('CreateTime',$this->CreateTime,true);
