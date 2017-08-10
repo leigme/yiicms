@@ -1,10 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "yc_comment".
+ * This is the model class for table "{{comment}}".
  *
- * The followings are the available columns in table 'yc_comment':
+ * The followings are the available columns in table '{{comment}}':
  * @property integer $Id
+ * @property integer $OrderNum
  * @property integer $ContentId
  * @property integer $ParentId
  * @property string $Title
@@ -17,8 +18,8 @@
  * @property string $DeleteTime
  *
  * The followings are the available model relations:
- * @property YcContent $content
- * @property YcUser $author
+ * @property Content $content
+ * @property User $author
  */
 class YcComment extends CActiveRecord
 {
@@ -37,7 +38,7 @@ class YcComment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'yc_comment';
+		return '{{comment}}';
 	}
 
 	/**
@@ -49,11 +50,11 @@ class YcComment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id', 'required'),
-			array('Id, ContentId, ParentId, Author, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
+			array('Id, OrderNum, ContentId, ParentId, Author, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
 			array('Title, Content, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, ContentId, ParentId, Title, Content, Author, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
+			array('Id, OrderNum, ContentId, ParentId, Title, Content, Author, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,8 +66,8 @@ class YcComment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'content' => array(self::BELONGS_TO, 'YcContent', 'ContentId'),
-			'author' => array(self::BELONGS_TO, 'YcUser', 'Author'),
+			'content' => array(self::BELONGS_TO, 'Content', 'ContentId'),
+			'author' => array(self::BELONGS_TO, 'User', 'Author'),
 		);
 	}
 
@@ -77,6 +78,7 @@ class YcComment extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
+			'OrderNum' => 'Order Num',
 			'ContentId' => 'Content',
 			'ParentId' => 'Parent',
 			'Title' => 'Title',
@@ -102,6 +104,7 @@ class YcComment extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
+		$criteria->compare('OrderNum',$this->OrderNum);
 		$criteria->compare('ContentId',$this->ContentId);
 		$criteria->compare('ParentId',$this->ParentId);
 		$criteria->compare('Title',$this->Title,true);

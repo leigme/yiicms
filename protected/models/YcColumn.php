@@ -1,10 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "yc_column".
+ * This is the model class for table "{{column}}".
  *
- * The followings are the available columns in table 'yc_column':
+ * The followings are the available columns in table '{{column}}':
  * @property integer $Id
+ * @property integer $OrderNum
  * @property string $Title
  * @property integer $ParentId
  * @property string $ImagePath
@@ -15,8 +16,8 @@
  * @property string $DeleteTime
  *
  * The followings are the available model relations:
- * @property YcContent[] $ycContents
- * @property YcUserColumn[] $ycUserColumns
+ * @property Content[] $contents
+ * @property UserColumn[] $userColumns
  */
 class YcColumn extends CActiveRecord
 {
@@ -35,7 +36,7 @@ class YcColumn extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'yc_column';
+		return '{{column}}';
 	}
 
 	/**
@@ -46,11 +47,11 @@ class YcColumn extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ParentId, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
+			array('OrderNum, ParentId, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
 			array('Title, ImagePath, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Title, ParentId, ImagePath, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
+			array('Id, OrderNum, Title, ParentId, ImagePath, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,8 +63,8 @@ class YcColumn extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ycContents' => array(self::HAS_MANY, 'YcContent', 'ColumnId'),
-			'ycUserColumns' => array(self::HAS_MANY, 'YcUserColumn', 'ColumnId'),
+			'contents' => array(self::HAS_MANY, 'Content', 'ColumnId'),
+			'userColumns' => array(self::HAS_MANY, 'UserColumn', 'ColumnId'),
 		);
 	}
 
@@ -74,6 +75,7 @@ class YcColumn extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
+			'OrderNum' => 'Order Num',
 			'Title' => 'Title',
 			'ParentId' => 'Parent',
 			'ImagePath' => 'Image Path',
@@ -97,6 +99,7 @@ class YcColumn extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
+		$criteria->compare('OrderNum',$this->OrderNum);
 		$criteria->compare('Title',$this->Title,true);
 		$criteria->compare('ParentId',$this->ParentId);
 		$criteria->compare('ImagePath',$this->ImagePath,true);

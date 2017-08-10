@@ -3,10 +3,9 @@
 class AdminController extends AdminBaseController {
     
     public function actionIndex() {
-        if (!$this->verifyLogin()) {
-            $this->ycRedirect($this, 'default/admin/login');
-            return;
-        }
+        
+        $this->verifyLogin();
+        
         // 设置CSS
         Tools::setThemeCSS(YC_BOOTSTRAP_CSS.'bootstrap.min.css');
         Tools::setThemeCSS('/css/admin/dashboard.css');
@@ -14,8 +13,31 @@ class AdminController extends AdminBaseController {
         Tools::setThemeJS(YC_BOOTSTRAP_JS.'bootstrap.min.js');
          
         $this->layout = '//admin/layout';
-
+        
+        $model = YcUser::model();
+        
+        $model->attributes = $_POST['YcUser'];
+        $username = $model->Username;
+        $password = $model->Password;
+        $remmber = $model->OperateFlag;
+        
+        $logic = new DefaultLogic();
+        
+        $result = $logic->verifyLogin($username, $password);
+        
+        if (!isset($result) || YC_STATUS_NG == $result) {
+            $this->ycRedirect('default/admin/login');
+            return YC_STATUS_NG;
+        }
+        
+        if (1 == $remmber) {
+            $_SESSION['user'] = $username;
+            $_SESSION['pwd'] = $password;
+        }
+        
         $this->render('index');
+        
+        return YC_STATUS_OK;
     }
     
     public function actionLogin() {
@@ -27,6 +49,8 @@ class AdminController extends AdminBaseController {
          
         $this->layout = '//admin/layout';
 
-        $this->render('login');
+        $model = YcUser::model();
+
+        $this->render('login', array('model'=>$model,));
     }
 }

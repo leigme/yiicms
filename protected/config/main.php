@@ -16,8 +16,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+	    'application.dao.*',
 	    'application.modules.default.base.*',
 	    'application.logics.default.*',
+	    'application.logics.base.*',
 	),
 
 	'modules'=>array(

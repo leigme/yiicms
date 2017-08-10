@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/8/8 16:54:09                            */
+/* Created on:     2017/8/10 15:16:03                           */
 /*==============================================================*/
 
 
@@ -61,6 +61,7 @@ create table yc_annex_type
 create table yc_column
 (
    Id                   int not null auto_increment,
+   OrderNum             int,
    Title                text,
    ParentId             int,
    ImagePath            text,
@@ -78,6 +79,7 @@ create table yc_column
 create table yc_comment
 (
    Id                   int not null,
+   OrderNum             int,
    ContentId            int,
    ParentId             int,
    Title                text,
@@ -97,6 +99,7 @@ create table yc_comment
 create table yc_content
 (
    Id                   int not null,
+   OrderNum             int,
    ColumnId             int,
    Title                text,
    ImagePath            text,

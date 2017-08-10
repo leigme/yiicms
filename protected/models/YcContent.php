@@ -1,10 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "yc_content".
+ * This is the model class for table "{{content}}".
  *
- * The followings are the available columns in table 'yc_content':
+ * The followings are the available columns in table '{{content}}':
  * @property integer $Id
+ * @property integer $OrderNum
  * @property integer $ColumnId
  * @property string $Title
  * @property string $ImagePath
@@ -17,10 +18,10 @@
  * @property string $DeleteTime
  *
  * The followings are the available model relations:
- * @property YcAnnex[] $ycAnnexes
- * @property YcComment[] $ycComments
- * @property YcColumn $column
- * @property YcUser $author
+ * @property Annex[] $annexes
+ * @property Comment[] $comments
+ * @property Column $column
+ * @property User $author
  */
 class YcContent extends CActiveRecord
 {
@@ -39,7 +40,7 @@ class YcContent extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'yc_content';
+		return '{{content}}';
 	}
 
 	/**
@@ -51,11 +52,11 @@ class YcContent extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id', 'required'),
-			array('Id, ColumnId, FileId, Author, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
+			array('Id, OrderNum, ColumnId, FileId, Author, OperateFlag, DeleteFlag', 'numerical', 'integerOnly'=>true),
 			array('Title, ImagePath, CreateTime, UpdateTime, DeleteTime', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, ColumnId, Title, ImagePath, FileId, Author, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
+			array('Id, OrderNum, ColumnId, Title, ImagePath, FileId, Author, OperateFlag, DeleteFlag, CreateTime, UpdateTime, DeleteTime', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,10 +68,10 @@ class YcContent extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ycAnnexes' => array(self::HAS_MANY, 'YcAnnex', 'ContentId'),
-			'ycComments' => array(self::HAS_MANY, 'YcComment', 'ContentId'),
-			'column' => array(self::BELONGS_TO, 'YcColumn', 'ColumnId'),
-			'author' => array(self::BELONGS_TO, 'YcUser', 'Author'),
+			'annexes' => array(self::HAS_MANY, 'Annex', 'ContentId'),
+			'comments' => array(self::HAS_MANY, 'Comment', 'ContentId'),
+			'column' => array(self::BELONGS_TO, 'Column', 'ColumnId'),
+			'author' => array(self::BELONGS_TO, 'User', 'Author'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class YcContent extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
+			'OrderNum' => 'Order Num',
 			'ColumnId' => 'Column',
 			'Title' => 'Title',
 			'ImagePath' => 'Image Path',
@@ -106,6 +108,7 @@ class YcContent extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
+		$criteria->compare('OrderNum',$this->OrderNum);
 		$criteria->compare('ColumnId',$this->ColumnId);
 		$criteria->compare('Title',$this->Title,true);
 		$criteria->compare('ImagePath',$this->ImagePath,true);
