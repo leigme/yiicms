@@ -19,12 +19,13 @@ class AdminBaseController extends BaseController {
 		    || empty($_SESSION['user']) || 0 >= strlen(trim($_SESSION['user']))
 		    || !isset($_SESSION['pwd']) || false === isset($_SESSION['pwd']) 
 		    || empty($_SESSION['pwd']) || 0 >= strlen(trim($_SESSION['pwd']))) {
+            $this->ycGetPath('default/admin/login');
 			return YC_STATUS_NG;
 		}
 
 		$logic = new DefaultLogic();
 		$result = $logic->verifyLogin($_SESSION['user'], $_SESSION['pwd']);
-		
+
 		if (YC_STATUS_OK == $result) {  
 		    return YC_STATUS_OK;
 		}

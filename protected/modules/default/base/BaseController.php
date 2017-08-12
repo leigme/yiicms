@@ -26,6 +26,10 @@ class BaseController extends Controller {
         $this->redirect(Yii::app()->baseUrl.'/'.$path);
     }
     
+    /**
+     * 得到服务器路径方法
+     * @param 服务器路径 $path
+     */
     public function ycGetPath($path) {
         return Yii::app()->baseUrl.'/'.$path;
     }

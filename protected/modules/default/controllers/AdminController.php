@@ -16,7 +16,6 @@ class AdminController extends AdminBaseController {
         
         $model = YcUser::model();
         
-        $model->attributes = $_POST['YcUser'];
         $username = $model->Username;
         $password = $model->Password;
         $remmber = $model->OperateFlag;
@@ -51,6 +50,6 @@ class AdminController extends AdminBaseController {
 
         $model = YcUser::model();
 
-        $this->render('login', array('model'=>$model,));
+        $this->render('index', array('model'=>$model,));
     }
 }
