@@ -9,7 +9,7 @@
          * htmlOptions的class属性设置表单的样式
          */
         'htmlOptions'=>array('enctype'=>'multipart/form-data', 'class'=>'form-signin',),
-        'action'=>$this->ycGetPath('default/admin/index'),
+        'action'=>$this->ycGetPath('default/admin/verifyLogin'),
     )); ?>
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Email address</label>

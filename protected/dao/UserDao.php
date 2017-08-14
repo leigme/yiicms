@@ -29,7 +29,7 @@ class UserDao extends BaseDao {
         // 构造模型
         $userModel = YcUser::model();
         // 需要查询的字段
-        $sql = "t1.Id, t1.UserName, t1.RealName, t1.PassWord ";
+        $sql = "t1.Id, t1.Username, t1.Realname, t1.Password ";
         // 查询对象
         $criteria = new CDbCriteria();
         // 设置SQL语句
@@ -53,7 +53,7 @@ class UserDao extends BaseDao {
         $criteria->order = $orderByString;
         
         // 检索数据
-        $resAllModelData = $userModel->findAll($criteria);
+        $resAllModelData = $userModel->findAll($criteria); 
         
         foreach ($resAllModelData as $itemData) {
             $un = $itemData->Username;
@@ -63,7 +63,8 @@ class UserDao extends BaseDao {
                 }
             }
         }
-        return YC_STATUS_NG;
         
+        return YC_STATUS_NG;
+         
     }
 }
