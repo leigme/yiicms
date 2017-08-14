@@ -28,17 +28,24 @@ class AdminController extends AdminBaseController {
      */
     public function actionIndex() {
         
-        $this->verifyLogin();
+        $result = $this->ycGetParam('isLogin');
         
-        // 设置CSS
-        Tools::setThemeCSS(YC_BOOTSTRAP_CSS.'bootstrap.min.css');
-        Tools::setThemeCSS('/css/admin/dashboard.css');
-        // 设置JS
-        Tools::setThemeJS(YC_BOOTSTRAP_JS.'bootstrap.min.js');
-         
-        $this->layout = '//admin/layout';
+        if (!isset($result) || false === isset($result)  
+		    || empty($result) || 0 >= strlen(trim($result))) {
+            $this->verifyLogin();
+        }
         
-        $this->render('index');
+        if ($result) {
+            // 设置CSS
+            Tools::setThemeCSS(YC_BOOTSTRAP_CSS.'bootstrap.min.css');
+            Tools::setThemeCSS('/css/admin/dashboard.css');
+            // 设置JS
+            Tools::setThemeJS(YC_BOOTSTRAP_JS.'bootstrap.min.js');
+             
+            $this->layout = '//admin/layout';
+            
+            $this->render('index');
+        }
     }
     
     /**
@@ -65,7 +72,7 @@ class AdminController extends AdminBaseController {
         $result = $logic->verifyLogin($username, $password);
 
         if (!isset($result) || YC_STATUS_NG == $result) {
-            $this->ycRedirect('default/admin/login');
+            $this->redirect($this->ycGetPath('default/admin/login'));
         }
 
         if (1 == $remmber) {
@@ -73,6 +80,22 @@ class AdminController extends AdminBaseController {
             $_SESSION['pwd'] = $password;
         }
         
-        $this->ycRedirect('default/admin/index');
+        $this->redirect(array('admin/index', 'isLogin'=>true));
+//         $this->ycRedirect(array('default/admin/index', 'model'=>$model,));
+    }
+    
+    /**
+     * 登出操作
+     */
+    public function actionSignOut() {
+        
+        if (!isset($_SESSION['user']) || !isset($_SESSION['pwd'])) {
+            $this->redirect($this->ycGetPath('default/admin/login'));
+        }
+        
+        $_SESSION['user'] = NULL;
+        $_SESSION['pwd'] = NULL;
+        
+        $this->redirect($this->ycGetPath('default/admin/login'));
     }
 }

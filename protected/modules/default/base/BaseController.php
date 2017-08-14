@@ -18,15 +18,6 @@ class BaseController extends Controller {
     }
     
     /**
-     * 重定向跳转
-     * 
-     * @param 跳转控制器路径 $path
-     */
-    public function ycRedirect($path) {
-        $this->redirect(Yii::app()->baseUrl.'/'.$path);
-    }
-    
-    /**
      * 得到服务器路径方法
      * @param 服务器路径 $path
      */

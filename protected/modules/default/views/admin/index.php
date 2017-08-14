@@ -14,7 +14,7 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="#">注销</a></li>
+            <li><a href="<?php echo $this->ycGetPath('default/admin/signOut'); ?>">注销</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">

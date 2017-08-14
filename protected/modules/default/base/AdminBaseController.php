@@ -19,8 +19,8 @@ class AdminBaseController extends BaseController {
 		    || empty($_SESSION['user']) || 0 >= strlen(trim($_SESSION['user']))
 		    || !isset($_SESSION['pwd']) || false === isset($_SESSION['pwd']) 
 		    || empty($_SESSION['pwd']) || 0 >= strlen(trim($_SESSION['pwd']))) {
-            $this->ycGetPath('default/admin/login');
-			return YC_STATUS_NG;
+            $this->redirect($this->ycGetPath('default/admin/login'));
+            return YC_STATUS_NG;
 		}
 
 		$logic = new DefaultLogic();
@@ -30,7 +30,7 @@ class AdminBaseController extends BaseController {
 		    return YC_STATUS_OK;
 		}
 		
-		$this->ycGetPath('default/admin/login');
-        return YC_STATUS_NG;
+		$this->redirect('login');
+		return YC_STATUS_NG;
     }
 }

@@ -55,6 +55,7 @@ class UserDao extends BaseDao {
         // 检索数据
         $resAllModelData = $userModel->findAll($criteria); 
         
+        // 循环取到的对象匹配判断
         foreach ($resAllModelData as $itemData) {
             $un = $itemData->Username;
             if ($username === $un) {
@@ -65,6 +66,5 @@ class UserDao extends BaseDao {
         }
         
         return YC_STATUS_NG;
-         
     }
 }
